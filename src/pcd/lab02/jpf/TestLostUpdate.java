@@ -38,7 +38,8 @@ public class TestLostUpdate {
 	}	
 	
 	public static void main(String[] args) throws Exception {
-		
+
+		//qui c'è un caso in cui value==1 e quindi fallisce
 		Counter c = new Counter();
 		Thread th0 = new MyThread(c);
 		Thread th1 = new MyThread(c);
