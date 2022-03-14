@@ -3,7 +3,8 @@ package pcd.lab03.sem;
 import java.util.concurrent.Semaphore;
 
 public class MyWorkerA extends Worker {
-	
+
+	//semaforo inizializzato con 1
 	private Semaphore mutex;
 	
 	public MyWorkerA(String name, Semaphore mutex){
