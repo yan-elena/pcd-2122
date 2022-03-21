@@ -15,7 +15,7 @@ public class BoundedBuffer2<Item> implements IBoundedBuffer<Item> {
 		out = 0;
 		buffer = (Item[]) new Object[size];
 		mutex = new ReentrantLock();
-		notEmpty = mutex.newCondition();
+		notEmpty = mutex.newCondition(); //domanda esame: perchè newCondition()
 		notFull = mutex.newCondition();
 	}
 

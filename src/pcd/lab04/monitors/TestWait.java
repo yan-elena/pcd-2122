@@ -6,6 +6,11 @@ public class TestWait {
 		Object obj = new Object();
 		
 		new Thread(() ->  {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			System.out.println("notifying...");
 			synchronized (obj) {
 				obj.notify();

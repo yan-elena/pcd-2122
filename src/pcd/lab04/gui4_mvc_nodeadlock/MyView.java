@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+// in realtà extends JFrame non va molto bene perchè la View non deve dipendere dalla tecnologia
 class MyView extends JFrame implements ActionListener, ModelObserver {
 
 	private MyController controller;
@@ -60,6 +61,10 @@ class MyView extends JFrame implements ActionListener, ModelObserver {
 	public void modelUpdated(MyModel model) {
 		try {
 			System.out.println("[View] model updated => updating the view");
+			// domanda esame: perchè devo mettere questo SwingUtilities.invokeLater
+			// ad accedere al componente, per leggere e scrivere, lo può fare solo event dispatch thread
+			// se chiamamo direttamente setText se non siamo edt, si possono creare corse critiche perchè mentre accediamo, edt potrebbe andare a modificare
+			// e quindi con invokeLater dobiamo delegare il compito all'edt
 			SwingUtilities.invokeLater(() -> {
 				state.setText("state: " + model.getState());
 			});
