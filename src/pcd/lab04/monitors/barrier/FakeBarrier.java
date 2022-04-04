@@ -1,5 +1,6 @@
 package pcd.lab04.monitors.barrier;
 
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
