@@ -4,11 +4,22 @@ plugins {
 }
 
 repositories {
+    mavenCentral()
     jcenter()
 }
 
+sourceSets {
+    main {
+        java {
+            srcDir("src")
+        }
+    }
+}
 
 dependencies {
+
+    // JPS dependencies
+    implementation(files("JPF/jpf-core/build/jpf-classes.jar"))
 
     /* module 2.2 - async programming with event-loops - vert.x */
     implementation 'io.vertx:vertx-core:4.2.6'
