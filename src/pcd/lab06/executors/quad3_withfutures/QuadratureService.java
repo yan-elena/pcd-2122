@@ -17,10 +17,11 @@ public class QuadratureService extends Thread {
 	public double compute(IFunction mf, double a, double b) throws InterruptedException { 
 
 		double x0 = a;
-		double step = (b-a)/numTasks;		
+		double step = (b-a)/numTasks;
 	    List<Future<Double>> results = new LinkedList<Future<Double>>();
 		for (int i = 0; i < numTasks; i++) {
 			try {
+				// mi viene restituito la future in cui posso recuperare il risultato
 				Future<Double> res = executor.submit(new ComputeAreaTask(x0, x0 + step, mf));
 				results.add(res);
 				log("submitted task " + x0 + " " + (x0+step));
@@ -33,6 +34,8 @@ public class QuadratureService extends Thread {
 	    double sum = 0;
 	    for (Future<Double> res: results) {
 	    	try {
+				// vado a recuperare i risultati, e li accumula, questa chiamata è bloccante, cioè se il risultato
+				// non è ancora disponibile, allora si sblocca
 	    		sum += res.get();
 	    	} catch (Exception ex){
 	    		ex.printStackTrace();

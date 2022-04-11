@@ -14,13 +14,13 @@ public class ComputeElemTask implements Runnable {
 	}
 	
 	public void run() {
-		// log("computing ("+i+","+j+")...");
+		log("computing ("+i+","+j+")...");
 		double sum = 0;
 		for (int k = 0; k < a.getNColumns(); k++){
 			sum += a.get(i, k)*b.get(k, j);
 		}
 		c.set(i,j,sum);
-		// log("computing ("+i+","+j+") done: "+sum);
+		log("computing ("+i+","+j+") done: "+sum);
 	}
 	
 	private void log(String msg){

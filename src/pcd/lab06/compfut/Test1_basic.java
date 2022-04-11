@@ -1,10 +1,14 @@
 package pcd.lab06.compfut;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Test1 con ComputableFuture
+ */
 public class Test1_basic {
 
 	public static void main(String[] args) {
 
+		// voglio mandare in esecuzione un task asincrono, non vedo più gli executor
 		CompletableFuture<Void> cf = CompletableFuture.runAsync(() -> {
 			log("doing.");
 			waitFor(500);

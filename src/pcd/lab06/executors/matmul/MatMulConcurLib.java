@@ -27,6 +27,7 @@ public class MatMulConcurLib {
 		try {
 			for (int i = 0; i < matA.getNRows(); i++){
 				for (int j = 0; j < matB.getNColumns(); j++){
+					// da il task da eseguire all'executor
 					exec.execute(new ComputeElemTask(i,j,matA,matB,matC));
 					
 					// Alternative: using a lambda expression to specify the task
@@ -41,7 +42,9 @@ public class MatMulConcurLib {
 					*/
 				}
 			}
+			// per chiudere l'executor, significa che quel executor non accetta più task
 			exec.shutdown();
+			// e posso mettere in attesa che tutti i task siano completati
 			exec.awaitTermination(Long.MAX_VALUE,TimeUnit.SECONDS);
 			return matC;
 		} catch (Exception ex){

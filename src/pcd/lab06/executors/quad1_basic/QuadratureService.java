@@ -12,9 +12,12 @@ public class QuadratureService {
 		this.numTasks = numTasks;
 		this.poolSize = poolSize;
 	}
-	
+
+	// si passa la funzione e gli estremi
 	public double compute(IFunction mf, double a, double b) throws InterruptedException { 
 		executor = Executors.newFixedThreadPool(poolSize);
+		// il task produce un risultato che il master lo deve sapere, questo approccio si fa uso del monitor, QuadratureResult
+		// in cui a ogni passo viene aggiunto al risultato
 		QuadratureResult result = new QuadratureResult();		
 		double x0 = a;
 		double step = (b-a)/numTasks;		
@@ -28,6 +31,7 @@ public class QuadratureService {
 			}
 		}				
 
+		// chiudo tutto e aspetto la terminazione per poi andare a prendere il risultato
 		executor.shutdown();
 		executor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);		
 		double res = result.getResult();

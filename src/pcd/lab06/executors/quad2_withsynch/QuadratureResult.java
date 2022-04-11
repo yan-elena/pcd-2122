@@ -19,6 +19,7 @@ public class QuadratureResult {
 		}
 	}
 
+	// in questo caso getResult permette di sincronizzarsi sulla disponibilità del risultato
 	public synchronized double getResult() throws InterruptedException {
 		while (nResultsArrived < nTotalResultsToWait){
 			wait();

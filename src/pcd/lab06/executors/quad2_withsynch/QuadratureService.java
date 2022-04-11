@@ -19,13 +19,15 @@ public class QuadratureService  {
 		double step = (b-a)/numTasks;		
 		for (int i = 0; i < numTasks; i++) {
 			try {
+				// in questo modo mando in esecuzione i task
 				executor.execute(new ComputeAreaTask(x0, x0 + step, mf, result));
 				log("submitted task " + x0 + " " + (x0+step));
 				x0 += step;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}				
+		}
+		// non chiudo più l'executor perchè lo gestisco nella getResult e si mette in attesa se non c'è risultato
 		double res = result.getResult();
 		return res;
 	}
