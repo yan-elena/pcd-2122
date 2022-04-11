@@ -6,6 +6,7 @@ import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.file.FileSystem;
 
+// componente attivo
 class MyReactiveAgent extends AbstractVerticle {
 	
 	public void start() {
@@ -26,6 +27,8 @@ class MyReactiveAgent extends AbstractVerticle {
 		});
 		
 		try {
+			// viene lanciato il warning per dire che il thread si è bloccato più di 2 secondi, infatti sotto facciamo
+			// una sleep
 			Thread.sleep(3000);
 		} catch (Exception ex) {};
 		

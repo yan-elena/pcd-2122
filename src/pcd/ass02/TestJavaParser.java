@@ -46,15 +46,16 @@ class FullCollector extends VoidVisitorAdapter<Void> {
 public class TestJavaParser {
 
 	public static void main(String[] args) throws Exception {
+		// dico qual è il file in cui voglio costruire l'AST e poi possiamo creare un visitor, specificando i nodi che ci interessa
 		CompilationUnit cu = StaticJavaParser.parse(new File("src/pcd/ass02/TestJavaParser.java"));
-		/*
+
 		var methodNames = new ArrayList<String>();
 		var methodNameCollector = new MethodNameCollector();
 		methodNameCollector.visit(cu,methodNames);
 		methodNames.forEach(n -> System.out.println("MethodNameCollected:" + n));
-		 */
-		var fullc = new FullCollector();
-		fullc.visit(cu, null);
+
+//		var fullc = new FullCollector();
+//		fullc.visit(cu, null);
 		
 	}
 }

@@ -7,13 +7,22 @@ import io.vertx.core.Vertx;
 
 class TestExecBlocking extends AbstractVerticle {
 
+	// private int x = 0;
+
 	public void start() {
 		log("before");
 
+		// x++;
+
+		// la lambda passata al executeBlocking non è eseguita all'event loop, ma viene delegata a un altro thread e la
+		// lambda ci passa come argomento la promise per specificare quando è completata la computazione
+		// executeBlocking utilizza il pool di thread di vert.x
 		Future<Integer> res = this.getVertx().executeBlocking(promise -> {
 			// Call some blocking API that takes a significant amount of time to return
 			log("blocking computation started");
 			try {
+				// possiamo modificare la variabile x anche in un blocco non dell'event loop
+				// x++;
 				Thread.sleep(5000);
 				
 				/* notify promise completion */
@@ -24,6 +33,9 @@ class TestExecBlocking extends AbstractVerticle {
 				promise.fail("exception");
 			}
 		});
+
+		// questo può creare corse critiche a quello prima che viene eseguito in un altro thread, questa cosa non è da fare
+		// x++;
 
 		log("after triggering a blocking computation...");
 
