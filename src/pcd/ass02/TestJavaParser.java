@@ -49,8 +49,8 @@ public class TestJavaParser {
 		// dico qual è il file in cui voglio costruire l'AST e poi possiamo creare un visitor, specificando i nodi che ci interessa
 		CompilationUnit cu = StaticJavaParser.parse(new File("src/pcd/ass02/TestJavaParser.java"));
 
-		var methodNames = new ArrayList<String>();
-		var methodNameCollector = new MethodNameCollector();
+		ArrayList<String> methodNames = new ArrayList<String>();
+		MethodNameCollector methodNameCollector = new MethodNameCollector();
 		methodNameCollector.visit(cu,methodNames);
 		methodNames.forEach(n -> System.out.println("MethodNameCollected:" + n));
 
