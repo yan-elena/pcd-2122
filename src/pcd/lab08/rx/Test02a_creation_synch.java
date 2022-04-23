@@ -11,13 +11,15 @@ public class Test02a_creation_synch {
 	    Observable<Integer> source = Observable.create(emitter -> {
 	        for (int i = 0; i <= 2; i++) {
 	            log("source: " + i);
+				// adesso voglio mettere questo valore, metto nel flusso con next
 	            emitter.onNext(i);
 	        }
 	        emitter.onComplete();
 	    });
 
 	    log("Subscribing A");
-	    
+
+		// chiama la mia lambda solo quando facico subscribe
 	    source.subscribe(v -> log("A: "+v));
 
 	    log("Subscribing B");

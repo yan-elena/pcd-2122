@@ -35,6 +35,7 @@ public class Test03a_sched_subscribeon {
 			.map(v -> { log("map 2 " + v); return v + 1; });		
 
 		src
+				// l'intero processo viene mandato sul thread
 			.subscribeOn(Schedulers.computation()) 	
 			.subscribe(v -> {									
 				log("sub 1 " + v);
@@ -56,12 +57,15 @@ public class Test03a_sched_subscribeon {
 		 * warning: flatMap => no order in merging
 		 */
 
+		// genera tutti i numeri da 1 a 10 e poi per ogni elemento viene generato un flusso e che poi viene trasformato
+		// in una mappa per trasformare il quadrato e per ognuno di questi flussi viene
 		Flowable.range(1, 10)
 		  .flatMap(v ->
 		      Flowable.just(v)
 		        .subscribeOn(Schedulers.computation())
 				.map(w -> { log("map " + w); return w * w; })		// by the RX comp thread;
 		  )
+				// punto di sincronizzare, in questo caso quindi è il main che manda questo sub,
 		  .blockingSubscribe(v -> {
 			 log("sub > " + v); 
 		  });

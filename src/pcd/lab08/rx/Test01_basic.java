@@ -9,7 +9,10 @@ public class Test01_basic {
 	public static void main(String[] args){
 				
 		log("creating with just.");
-		
+
+		// Flowable supporta le funzionalità più articolate come per back
+		// just crea uno stream fatto di uno solo valore
+		// sottoscrivere, dico per ogni elemento cosa voglio fare
 	    Flowable.just("Hello world").subscribe(s -> {	    		
 	    		log(s);    		
 	    });
@@ -24,8 +27,10 @@ public class Test01_basic {
 	    // simple subscription 
 	    
 		String[] words = { "Hello", " ", "World", "!" }; 
-		
+
+		// posso creare uno stream da un'array
 		Flowable.fromArray(words)
+				// ogni elemento viene processato
 			.subscribe((String s) -> {
 				log(s);
 			});
@@ -46,9 +51,12 @@ public class Test01_basic {
 		// operators
 
 		log("simple application of operators");
-		
+
+		// genera un flusso di range da 1 a 20
 		Flowable<Integer> flow = Flowable.range(1, 20)
+				// poi voglio un nuovo flusso che contiene tutti i valori al quadrato
 			.map(v -> v * v)
+				// e voglio quelli divisibili per 3
 			.filter(v -> v % 3 == 0);
 		
 		log("first subscription #1");
@@ -64,6 +72,7 @@ public class Test01_basic {
 		log("showing the flow...");
 		
 		Flowable.range(1, 20)
+				// ad ogni step faccio un log di quello che sto facendo
 			.doOnNext(v -> log("1> " + v))
 			.map(v -> v * v)
 			.doOnNext(v -> log("2> " + v))

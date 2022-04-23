@@ -38,6 +38,7 @@ public class Test02b_creation_async {
 			log("Subscriber B: " + s); 
 		});	
 
+		// il metodo main finisce prima che i flussi hanno completato la loro computazione
 		System.out.println("Done.");
 	}
 	
