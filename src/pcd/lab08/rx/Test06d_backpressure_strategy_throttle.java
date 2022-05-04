@@ -20,6 +20,7 @@ public class Test06d_backpressure_strategy_throttle {
 		/* using throttleLast to reduce the flow (effect: less elements are dropped) */
 		 
 		source
+				// ridurre questo fenomeno utilizzando throttleLast, in cui si va ad ridurre il numero generati
 		.throttleLast(100, TimeUnit.MILLISECONDS)	// emits only the last item in 100 ms 
 		.onBackpressureDrop(v  -> {
 			log("DROPPING: " + v);

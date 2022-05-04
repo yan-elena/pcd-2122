@@ -4,6 +4,7 @@ import io.reactivex.rxjava3.core.*;
 import io.reactivex.rxjava3.flowables.ConnectableFlowable;
 import io.reactivex.rxjava3.observables.ConnectableObservable;
 
+// in questo caso tutti i subscribe condividono quella generazione
 public class Test02d_creation_hot {
 
 	public static void main(String[] args) throws Exception {

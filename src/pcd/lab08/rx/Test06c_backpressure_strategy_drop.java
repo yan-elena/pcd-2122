@@ -18,6 +18,7 @@ public class Test06c_backpressure_strategy_drop {
 		/* never generating a MissingBackpressureException => elements are dropped */
 		
 		source
+				// specifico una risoluzione in cui tutti gli elementi che trovo li elimino
 		.onBackpressureDrop(v  -> {
 			log("DROPPING: " + v);
 		})

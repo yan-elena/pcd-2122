@@ -20,6 +20,8 @@ public class Test06b_backpressure_strategy_buffer {
 		 * after ~8000 emits (it depends on the local config) */
 		
 		source
+				// quando si arriva al limite, vienee eseguito questo, ma qui non stiamo facendo niente e quindi c'è lo
+				// stesso problema
 			.onBackpressureBuffer(5_000, () -> {
 				log("HELP!");
 			})

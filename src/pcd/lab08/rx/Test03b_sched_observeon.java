@@ -31,6 +31,8 @@ public class Test03b_sched_observeon {
 		 */
 		Observable.just(100)	
 			.map(v -> { log("map 1 " + v); return v * v; })		// by the current thread (main thread)
+			// observeOn permette di avere un controllo più fine in cui specifichiamo che da questo punto in poi usa la
+			// strategia che ti dico io, prima no
 			.observeOn(Schedulers.computation()) 				// => use RX comp thread(s) downstream
 			.map(v -> { log("map 2 " + v); return v + 1; })		// by the RX comp thread
 			.subscribe(v -> {						// by the RX comp thread

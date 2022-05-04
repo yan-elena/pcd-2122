@@ -21,6 +21,7 @@ public class Test04a_swing_pubsub {
 			setVisible(true);
 			JButton button = new JButton("Press me");
 			button.addActionListener((ActionEvent ev) -> {
+				// produce elementi nello stream, come se fosse la put
 				stream.onNext(1);
 			});
 			getContentPane().add(button);
@@ -33,7 +34,8 @@ public class Test04a_swing_pubsub {
 	}
 
 	static public void main(String[] args){
-		
+
+		// è un observable, in cui
 		PublishSubject<Integer> clickStream = PublishSubject.create();
 		
 		SwingUtilities.invokeLater(()->{
@@ -47,6 +49,8 @@ public class Test04a_swing_pubsub {
 			});
 
 		clickStream
+				// buffer permette di raggruppare n item di una finestra temporale per far in modo che n item siano visti
+				// come un unico item
 			.buffer(clickStream.throttleWithTimeout(250, TimeUnit.MILLISECONDS))
 			.map(xs -> xs.size())
 			.filter((v) -> v >= 2)
