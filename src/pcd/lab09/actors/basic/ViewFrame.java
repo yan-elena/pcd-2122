@@ -11,6 +11,7 @@ import javax.swing.SwingUtilities;
 
 import akka.actor.ActorRef;
 
+// GUI vecchia api
 public class ViewFrame extends JFrame {
 
 	public ViewFrame(ActorRef actorView) {
@@ -18,6 +19,7 @@ public class ViewFrame extends JFrame {
 		setSize(400, 70);
 		JButton button = new JButton("Press me");
 		button.addActionListener((ActionEvent ev) -> {
+			// nel listener posso mandare un messaggio all'attore,
 			actorView.tell(new PressedMsg(), ActorRef.noSender());
 		});
 		JPanel panel = new JPanel();

@@ -7,12 +7,12 @@ import akka.actor.typed.javadsl.ActorContext;
 import akka.actor.typed.javadsl.Behaviors;
 import akka.actor.typed.javadsl.Receive;
 
-
 public class ActorWithMultipleBehaviors extends AbstractBehavior<ActorWithMultipleBehaviorsBaseMsg> {
 
-	public static class MsgZero implements ActorWithMultipleBehaviorsBaseMsg {}
-	public static class MsgOne implements ActorWithMultipleBehaviorsBaseMsg {}
-	public static class MsgTwo implements ActorWithMultipleBehaviorsBaseMsg {}
+	// un attore con 3 comportamenti
+	public static class MsgZero implements ActorWithMultipleBehaviorsBaseMsg {} // può ricevere solo message 0
+	public static class MsgOne implements ActorWithMultipleBehaviorsBaseMsg {} // può ricevere solo message 1
+	public static class MsgTwo implements ActorWithMultipleBehaviorsBaseMsg {} // può ricevere solo message 2
 
 	private int initialState;
 	
@@ -34,7 +34,8 @@ public class ActorWithMultipleBehaviors extends AbstractBehavior<ActorWithMultip
 	}
 
 	private Behavior<ActorWithMultipleBehaviorsBaseMsg> onMsgZero(MsgZero msg) {
-		this.getContext().getLog().info("msgZero - state: " + initialState);		
+		this.getContext().getLog().info("msgZero - state: " + initialState);
+		                                                               // specificando il nuovo stato aggiornato (+1)
 		return Behaviors.setup(context -> new BehaviourA(context, initialState + 1));
 	}
 
@@ -57,7 +58,8 @@ public class ActorWithMultipleBehaviors extends AbstractBehavior<ActorWithMultip
 		}	
 
 		private Behavior<ActorWithMultipleBehaviorsBaseMsg> onMsgOne(MsgOne msg) {
-			this.getContext().getLog().info("msgOne - state: " + localState);		
+			this.getContext().getLog().info("msgOne - state: " + localState);
+			// in questo caso non riceviamo più il behaviour this, perchè stiamo transitando
 			return Behaviors.setup(context -> new BehaviourB(context, localState + 1));
 		}
 	}

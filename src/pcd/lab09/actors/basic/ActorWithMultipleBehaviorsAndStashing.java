@@ -8,6 +8,7 @@ import akka.actor.typed.javadsl.Behaviors;
 import akka.actor.typed.javadsl.Receive;
 import akka.actor.typed.javadsl.StashBuffer;
 
+// si può mettere da parte i messaggi StashBuffer<Tipo del messaggio>
 public class ActorWithMultipleBehaviorsAndStashing extends AbstractBehavior<ActorWithMultipleBehaviorsBaseMsg> {
 
 	public static class MsgZero implements ActorWithMultipleBehaviorsBaseMsg {}
@@ -27,6 +28,7 @@ public class ActorWithMultipleBehaviorsAndStashing extends AbstractBehavior<Acto
 	
 
 	public static Behavior<ActorWithMultipleBehaviorsBaseMsg> create(int initialState) {
+		// lo stashBuffer ce lo passa quando ha gestito il behaviour, lo stash viene creato lui
 		return Behaviors.withStash(100,
 				stash ->  Behaviors.setup(
 						context -> new ActorWithMultipleBehaviorsAndStashing(context, initialState, stash)));
@@ -35,21 +37,26 @@ public class ActorWithMultipleBehaviorsAndStashing extends AbstractBehavior<Acto
 	@Override
 	public Receive<ActorWithMultipleBehaviorsBaseMsg> createReceive() {
 		return newReceiveBuilder()
+				// voglio gestire message 0
 				.onMessage(MsgZero.class,this::onMsgZero)
+				// ma per altri messaggi (anyMsg, metodo handler) mettere nello stashBuffer
 				.onMessage(ActorWithMultipleBehaviorsBaseMsg.class,this::onAnyMsg)
 				.build();
 	}
 
 	
 	private Behavior<ActorWithMultipleBehaviorsBaseMsg> onMsgZero(MsgZero msg) {
-		this.getContext().getLog().info("msgZero - state: " + initialState);		
+		this.getContext().getLog().info("msgZero - state: " + initialState);
+		// quando andiamo a transitare un nuovo behaviour e sappiamo che proveniamo da un behaviour con i suoi vecchi
+		// messaggi gli diciamo di ripristinare tutti i messaggi che sono stati accumulati
 		return stashBuffer.unstashAll(
 					Behaviors.setup(context -> new BehaviourA(context, initialState + 1))
 			   );
 	}
 
 	private Behavior<ActorWithMultipleBehaviorsBaseMsg> onAnyMsg(ActorWithMultipleBehaviorsBaseMsg msg) {
-		this.getContext().getLog().info("stashing msg - state " + initialState);	
+		this.getContext().getLog().info("stashing msg - state " + initialState);
+		// metti il messaggio nello stash
 		stashBuffer.stash(msg);
 		return this;
 	}

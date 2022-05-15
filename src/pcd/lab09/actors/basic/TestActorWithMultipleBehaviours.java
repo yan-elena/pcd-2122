@@ -5,6 +5,9 @@ import akka.actor.typed.ActorSystem;
 public class TestActorWithMultipleBehaviours {
   public static void main(String[] args) throws Exception  {
 
+	  // però se sono nel behaviour A e dichiaro solo di ricevere quel messaggio, se ricevo altri messaggi allora questi
+	  // vengono persi, viene fatto vedere un info in cui viene detto che quel messaggio non è stato gestito.
+	  // se non vogliamo perdere il messaggio allora vedi esempio ActorWithMultipleBehaviorsAndStashing
 	  final ActorSystem<ActorWithMultipleBehaviorsBaseMsg> myActor =
 			    ActorSystem.create(ActorWithMultipleBehaviors.create(0), "myActor");
 

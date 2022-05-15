@@ -10,6 +10,7 @@ import pcd.lab09.actors.basic.CounterActor.CounterValueMsg;
 import pcd.lab09.actors.basic.CounterActor.GetValueMsg;
 import pcd.lab09.actors.basic.CounterActor.IncMsg;
 
+// altro attore, che interagisce con il Counter
 public class CounterUserActor extends AbstractBehavior<CounterUserMsg> {
 
 	private ActorRef<CounterMsg> counter;
@@ -31,6 +32,9 @@ public class CounterUserActor extends AbstractBehavior<CounterUserMsg> {
 
 	private Behavior<CounterUserMsg> onStartMsg(StartMsg msg) {
 		this.getContext().getLog().info("started");
+		// nel modello puro, in teoria non abbiamo nessuna garanzia che questi vengono ricevuti in ordine, e quindi potrebbe
+		// ricevere prima get e poi inc inc e quindi potremmo ricevere o 0 o 1 o 2. MA in questo caso in Akka funziona
+		// in modo lineare, quindi questi vengono ricevuti in ordine
 		msg.counter.tell(new IncMsg());
 		msg.counter.tell(new IncMsg());
 		msg.counter.tell(new GetValueMsg(this.getContext().getSelf()));
