@@ -4,6 +4,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+// lanciare prima middleware poi server e poi questo
 public class Test01_Client1a {
 
     private Test01_Client1a() {}

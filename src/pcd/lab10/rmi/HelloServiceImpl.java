@@ -2,6 +2,7 @@ package pcd.lab10.rmi;
 
 import java.rmi.RemoteException;
 
+// l'implementazione della classe è come se fosse trasparente, ha la stessa logica come se fosse in locale
 public class HelloServiceImpl implements HelloService {
         
     public HelloServiceImpl() {}

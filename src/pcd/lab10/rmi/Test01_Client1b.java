@@ -4,6 +4,9 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+// se rilanciamo più volte il clientb vediamo che otteniamo il valore aggiornato, perchè il valore persiste nel remoto
+// se abbiamo più client -> non è thread safe perchè rmi ha più thread, quindi se chiamano lo stesso oggetto abbiamo
+// delle corse critiche, per evitare questa cosa dovremmo mettere tutte le cose di synchronized
 public class Test01_Client1b {
 
     private Test01_Client1b() {}

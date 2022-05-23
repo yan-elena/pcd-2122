@@ -14,12 +14,14 @@ public class Test02_Client2 {
         try {
             Registry registry = LocateRegistry.getRegistry(host);
             HelloService obj = (HelloService) registry.lookup("helloObj2");
-            
+
+            // MYClass1 è un oggetto locale e quindi quando ho fatto l'incremento, l'oggetto rimane invariato
             MyClass1 arg1 = new MyClass1Impl(200);
             System.out.println("before: >> "+arg1.get());
             obj.sayHello(arg1);
             System.out.println("after: >> "+arg1.get());
-            
+
+            // MyClass2 in questo caso è un oggetto remoto e quindi dopo la chiamata l'oggetto viene cambiato stato
             MyClass2 arg = new MyClass2Impl(300); 
             UnicastRemoteObject.exportObject(arg, 0);
 

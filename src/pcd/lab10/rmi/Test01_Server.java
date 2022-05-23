@@ -3,7 +3,11 @@ package pcd.lab10.rmi;
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
-        
+
+// QUANDO LANCIAMO L'APPLICAZIONE, ricordare di lanciare nella cartella build/classes/java/main perchè è qui che si trova
+// la root di tutte le classi ->> comando: rmiregistry
+// questa applicazione rimane in esecuzione perchè è un processo che fa da middleware
+// lanciare il middleware prima di lanciare questo test!!!
 public class Test01_Server  {
                 
     public static void main(String args[]) {
