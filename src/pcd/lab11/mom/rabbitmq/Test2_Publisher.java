@@ -14,6 +14,7 @@ public class Test2_Publisher {
     Connection connection = factory.newConnection();
 
     Channel channel = connection.createChannel();
+    // collega all'exchange e specifichi la modalità, come ti devi comportare con questo exchange
     channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
 
     String message = getMessage(argv);

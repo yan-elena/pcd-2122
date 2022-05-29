@@ -3,6 +3,7 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
 
+// in questi casi, se un receiver arriva dopo, allora non riceve i messaggi inviati prima
 public class Test3_PublisherWithRoutingDirect {
 
   private static final String EXCHANGE_NAME = "direct_logs";

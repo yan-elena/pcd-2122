@@ -13,6 +13,8 @@ public class Test2_Subscriber {
 
     channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
     String queueName = channel.queueDeclare().getQueue();
+    // per ricevere un messaggio ha bisogno di una coda, ma lo crea anonima (non dando il nome), che il sistema sa che
+    // questa coda è associata a questo subscriber, quindi questo viene eliminata quando questo subscriber va giù
     channel.queueBind(queueName, EXCHANGE_NAME, "");
 
     System.out.println(" [*] Waiting for messages. To exit press CTRL+C");

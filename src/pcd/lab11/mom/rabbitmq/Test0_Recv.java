@@ -15,6 +15,7 @@ public class Test0_Recv {
 	    
 	    Channel channel = connection.createChannel();
 
+		// per ricevere messaggi da questa specificando la callback
 	    channel.queueDeclare(QUEUE_NAME, false, false, false, null);
 	    System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 
